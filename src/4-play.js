@@ -28,15 +28,13 @@ const play = async () => {
   const winnerToken = await sdk.token.getV2({collectionId: carsCollectionId, tokenId: winner});
   const winnerVictories = winnerToken.attributes.find(a => a.trait_type === "Victories").value;
 
-  // 2. If this is the first win - give an achievement
-  if (winnerVictories + 1 === 1) {
+  // 2. For each win give a winner trophy for staking rewards distribution
     transactions.push(sdk.token.createV2({
       collectionId: achievementsCollectionId,
       image: "https://gateway.pinata.cloud/ipfs/QmSEK7Vua2QbTXrN8GPzRZC7ZumxteZBwjdXnvaY3tzVDU",
       attributes: [{trait_type: "Bonus", value: 10}],
       owner: Address.nesting.idsToAddress(winnerToken.collectionId, winnerToken.tokenId),
     }, {nonce: nonce++}));
-  }
 
   ////////////////////////////////////////////////////////
   ///////////////////// EXPERIENCE CALLS //////////////////////
