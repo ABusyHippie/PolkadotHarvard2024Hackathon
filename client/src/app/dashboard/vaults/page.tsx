@@ -364,7 +364,7 @@ export default function Vaults() {
     return (
         <main className="py-8 px-4 md:px-6 max-w-7xl mx-auto bg-gradient-to-b from-slate-900 to-slate-800 text-white">
             <h1 className="text-5xl font-extrabold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-[#ff8a00] via-[#e52e71] to-[#ff8a00] retro-text-shadow">
-                Neon Garage 🏁
+                Unique Garage 🏁
             </h1>
             <div className="mb-8 relative">
                 <Input
