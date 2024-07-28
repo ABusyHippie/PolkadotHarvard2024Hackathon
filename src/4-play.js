@@ -25,19 +25,13 @@ const play = async () => {
   ///////////////////// WINNER CALLS /////////////////////
   ////////////////////////////////////////////////////////
 
-  // 1. Increment Victories to Winner
   const winnerToken = await sdk.token.getV2({collectionId: carsCollectionId, tokenId: winner});
-  const winnerVictories = winnerToken.attributes.find(a => a.trait_type === "Victories").value;
+  let winnerVictories = winnerToken.attributes.find(a => a.trait_type === "Victories").value;
+  console.log("winner: ", winner, "Victories: ", winnerVictories)
 
-  transactions.push(sdk.token.setProperties({
-    collectionId: carsCollectionId,
-    tokenId: winner,
-    // NOTICE: Attributes stored in "tokenData" property
-    properties: [{
-      key: "tokenData",
-      value: changeAttribute(winnerToken, "Victories", winnerVictories + 1)
-    }]
-  }, { nonce: nonce++}));
+
+  winnerVictories = winnerToken.attributes.find(a => a.trait_type === "Victories").value;
+  console.log("winner: ", winner, "Victories: ", winnerVictories)
 
   // 2. If this is the first win - give an achievement
   if (winnerVictories + 1 === 1) {
@@ -57,7 +51,25 @@ const play = async () => {
       const playerToken = await sdk.token.getV2({collectionId: carsCollectionId, tokenId});
       const playerExps = playerToken.attributes.find(a => a.trait_type === "Experience").value;
 
-      // 3. Increment Experiences to participant
+      if(tokenId == winner){
+        // 3. Increment Experiences to participant
+      transactions.push(sdk.token.setProperties({
+        collectionId: carsCollectionId,
+        tokenId,
+        // NOTICE: Attributes stored in "tokenData" property
+        properties: [{
+          key: "tokenData",
+          value: changeAttribute(playerToken, "Experience", playerExps + 1)
+        },
+        {
+          key: "tokenData",
+          value: changeAttribute(winnerToken, "Victories", winnerVictories + 1)
+        }
+      ]
+      }, {nonce: nonce++}));
+      }
+      else{
+        // 3. Increment Experiences to participant
       transactions.push(sdk.token.setProperties({
         collectionId: carsCollectionId,
         tokenId,
@@ -67,6 +79,7 @@ const play = async () => {
           value: changeAttribute(playerToken, "Experience", playerExps + 1)
         }]
       }, {nonce: nonce++}));
+      }
 
       // 4. If this is the first experience - give an achievement
       if (playerExps + 1 === 1) {
