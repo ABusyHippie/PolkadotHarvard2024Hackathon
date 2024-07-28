@@ -1,6 +1,6 @@
 # Winner's Circle Demo
 
-This codebase allows you to launch a winner's circle circuit, create players, and run races to find the staked rewards victor.
+This codebase allows you to launch a winner's circle circuit, create players, and run races to find the staked rewards victor as well as purchase power-ups and distribute rewards to the winners. 
 
 ### Before we start
 
@@ -10,19 +10,60 @@ This codebase allows you to launch a winner's circle circuit, create players, an
 - Run `npm install`
 
 ## How it works
-Winner's circle is a game for winner's only! Stake your crypto, generate yield rewards, have a chance to win a prize. Unstake at anytime, no losses!
+Winner's circle is a game for winner's only! Stake your crypto, generate yield rewards, win a prize for each race won. Unstake at anytime, no losses!
 
-<img src="./images/img1.png">
+The repo is split into the back-end deployment code (main) for creating Unique NFT collections for players/power-ups/trophies, as well as front-end code (gendev1/frontend) for purchasing power-ups, staking into a racing pool, and distributing funds to the victors.
+
+### Front End (gendev1/frontend):
+
+## 1. Navigate to the client directory and install dependencies
+
+```sh
+cd client
+npm install
+```
+
+## 2. Run the server and open http://localhost:3000/dashboard in your browser once it's running
+
+```sh
+npm run dev
+```
+
+## 3. Connect to the dashboard using a Polkadot wallet and start your engines!
+
+Races tab (Default)
+- View features
+- Overview of how it works
+- Join a race (staking pool)
+
+<img src="./images/img4.png">
+
+Garage tab
+- Select your vehicle
+- View it's features
+- Purchase Unique NFT to augment your odds (In Progress)
+
+<img src="./images/img5.png">
+
+Driver tab
+- Select a boost
+- Give yourself a 1 time edge, or thwart your race opponents 
+- Purchase Dynamic NFT Boosts to augment your odds (In Progress)
+
+<img src="./images/img6.png">
+
+### Back End (main):
 
 Join a staking pool and get a Dynamic player NFT which you can then augment with Nested NFTs that allow you to race with cars with better traits, give you "wheels" which improve your odds of winning the current pool, or "spikes" which sabotage other players. When you win a prize pool your `Victories` counter increases, and for each pool you "race" in the `Experience` counter increments.
 
+<img src="./images/img1.png">
 <img src="./images/img2.png">
 
 Winner's of each race get a unique achievement NFT with the gold medal for your specific race, as well as the staking prize pool of yield rewards!
 
 <img src="./images/img3.png">
 
-### Talking about features
+### Features
 
 - All NFTs are owned by individual users
 - The application can modify NFT properties
