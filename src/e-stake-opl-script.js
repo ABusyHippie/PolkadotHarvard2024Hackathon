@@ -2,7 +2,202 @@ import { connectSdk } from './utils/connect-sdk.js';
 import { ethers } from 'ethers';
 import { Address } from '@unique-nft/utils';
 
-const VAULT_ABI = ['function stake() external payable'];
+const VAULT_ABI = [
+    {
+        inputs: [
+            {
+                internalType: 'address',
+                name: 'initialOwner',
+                type: 'address',
+            },
+        ],
+        stateMutability: 'nonpayable',
+        type: 'constructor',
+    },
+    {
+        inputs: [
+            {
+                internalType: 'address',
+                name: 'owner',
+                type: 'address',
+            },
+        ],
+        name: 'OwnableInvalidOwner',
+        type: 'error',
+    },
+    {
+        inputs: [
+            {
+                internalType: 'address',
+                name: 'account',
+                type: 'address',
+            },
+        ],
+        name: 'OwnableUnauthorizedAccount',
+        type: 'error',
+    },
+    {
+        anonymous: false,
+        inputs: [
+            {
+                indexed: true,
+                internalType: 'address',
+                name: 'previousOwner',
+                type: 'address',
+            },
+            {
+                indexed: true,
+                internalType: 'address',
+                name: 'newOwner',
+                type: 'address',
+            },
+        ],
+        name: 'OwnershipTransferred',
+        type: 'event',
+    },
+    {
+        anonymous: false,
+        inputs: [
+            {
+                indexed: true,
+                internalType: 'address',
+                name: 'user',
+                type: 'address',
+            },
+            {
+                indexed: false,
+                internalType: 'uint256',
+                name: 'amount',
+                type: 'uint256',
+            },
+        ],
+        name: 'Staked',
+        type: 'event',
+    },
+    {
+        anonymous: false,
+        inputs: [
+            {
+                indexed: true,
+                internalType: 'address',
+                name: 'user',
+                type: 'address',
+            },
+            {
+                indexed: false,
+                internalType: 'uint256',
+                name: 'amount',
+                type: 'uint256',
+            },
+        ],
+        name: 'Unstaked',
+        type: 'event',
+    },
+    {
+        inputs: [
+            {
+                internalType: 'address',
+                name: 'user',
+                type: 'address',
+            },
+        ],
+        name: 'getStake',
+        outputs: [
+            {
+                internalType: 'uint256',
+                name: '',
+                type: 'uint256',
+            },
+        ],
+        stateMutability: 'view',
+        type: 'function',
+    },
+    {
+        inputs: [],
+        name: 'owner',
+        outputs: [
+            {
+                internalType: 'address',
+                name: '',
+                type: 'address',
+            },
+        ],
+        stateMutability: 'view',
+        type: 'function',
+    },
+    {
+        inputs: [],
+        name: 'renounceOwnership',
+        outputs: [],
+        stateMutability: 'nonpayable',
+        type: 'function',
+    },
+    {
+        inputs: [],
+        name: 'stake',
+        outputs: [],
+        stateMutability: 'payable',
+        type: 'function',
+    },
+    {
+        inputs: [
+            {
+                internalType: 'address',
+                name: '',
+                type: 'address',
+            },
+        ],
+        name: 'stakes',
+        outputs: [
+            {
+                internalType: 'uint256',
+                name: '',
+                type: 'uint256',
+            },
+        ],
+        stateMutability: 'view',
+        type: 'function',
+    },
+    {
+        inputs: [],
+        name: 'totalStaked',
+        outputs: [
+            {
+                internalType: 'uint256',
+                name: '',
+                type: 'uint256',
+            },
+        ],
+        stateMutability: 'view',
+        type: 'function',
+    },
+    {
+        inputs: [
+            {
+                internalType: 'address',
+                name: 'newOwner',
+                type: 'address',
+            },
+        ],
+        name: 'transferOwnership',
+        outputs: [],
+        stateMutability: 'nonpayable',
+        type: 'function',
+    },
+    {
+        inputs: [
+            {
+                internalType: 'uint256',
+                name: 'amount',
+                type: 'uint256',
+            },
+        ],
+        name: 'unstake',
+        outputs: [],
+        stateMutability: 'nonpayable',
+        type: 'function',
+    },
+];
 
 const stakeOPL = async (stakeAmount, userAddress, stakesCollectionId, vaultCollectionId, vaultTokenId, vaultContractAddress) => {
     try {
@@ -32,25 +227,16 @@ const stakeOPL = async (stakeAmount, userAddress, stakesCollectionId, vaultColle
         }
 
         // Stake OPL tokens
-        // console.log('Attempting to stake OPL tokens...');
-        // const stakeResult = await sdk.extrinsics.submitWaitResult({
-        //     address: account.address,
-        //     section: 'evm',
-        //     method: 'call',
-        //     args: [
-        //         ethereumAddress,
-        //         vaultContractAddress,
-        //         stakeAmountInWei.toString(),
-        //         '2000000',
-        //         null,
-        //         null,
-        //         null,
-        //         ethers.id('stake()').slice(0, 10), // Function selector for stake()
-        //         false,
-        //     ],
-        // });
-
-        // console.log(`Staked ${stakeAmount} OPL tokens. Transaction hash: ${stakeResult.hash}`);
+        console.log('Attempting to stake OPL tokens...');
+        const stakeResult = await sdk.evm.call({
+            contractAddress: vaultContractAddress,
+            funcName: 'stake',
+            abi: VAULT_ABI,
+            value: stakeAmountInWei.toString(),
+        });
+        const evmEvents = evmTxResult.parsed?.parsedEvents;
+        console.log('EVM events:', evmEvents);
+        console.log(`Staked ${stakeAmount} OPL tokens. Transaction hash: ${stakeResult.hash}`);
 
         // Create stake NFT
         console.log('Creating stake NFT...');

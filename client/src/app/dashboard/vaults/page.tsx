@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -9,6 +9,203 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 
 const retroBlue = 'hsl(210, 100%, 56%)';
 const retroPink = 'hsl(331, 100%, 45%)';
+
+const VAULT_ABI = [
+    {
+        inputs: [
+            {
+                internalType: 'address',
+                name: 'initialOwner',
+                type: 'address',
+            },
+        ],
+        stateMutability: 'nonpayable',
+        type: 'constructor',
+    },
+    {
+        inputs: [
+            {
+                internalType: 'address',
+                name: 'owner',
+                type: 'address',
+            },
+        ],
+        name: 'OwnableInvalidOwner',
+        type: 'error',
+    },
+    {
+        inputs: [
+            {
+                internalType: 'address',
+                name: 'account',
+                type: 'address',
+            },
+        ],
+        name: 'OwnableUnauthorizedAccount',
+        type: 'error',
+    },
+    {
+        anonymous: false,
+        inputs: [
+            {
+                indexed: true,
+                internalType: 'address',
+                name: 'previousOwner',
+                type: 'address',
+            },
+            {
+                indexed: true,
+                internalType: 'address',
+                name: 'newOwner',
+                type: 'address',
+            },
+        ],
+        name: 'OwnershipTransferred',
+        type: 'event',
+    },
+    {
+        anonymous: false,
+        inputs: [
+            {
+                indexed: true,
+                internalType: 'address',
+                name: 'user',
+                type: 'address',
+            },
+            {
+                indexed: false,
+                internalType: 'uint256',
+                name: 'amount',
+                type: 'uint256',
+            },
+        ],
+        name: 'Staked',
+        type: 'event',
+    },
+    {
+        anonymous: false,
+        inputs: [
+            {
+                indexed: true,
+                internalType: 'address',
+                name: 'user',
+                type: 'address',
+            },
+            {
+                indexed: false,
+                internalType: 'uint256',
+                name: 'amount',
+                type: 'uint256',
+            },
+        ],
+        name: 'Unstaked',
+        type: 'event',
+    },
+    {
+        inputs: [
+            {
+                internalType: 'address',
+                name: 'user',
+                type: 'address',
+            },
+        ],
+        name: 'getStake',
+        outputs: [
+            {
+                internalType: 'uint256',
+                name: '',
+                type: 'uint256',
+            },
+        ],
+        stateMutability: 'view',
+        type: 'function',
+    },
+    {
+        inputs: [],
+        name: 'owner',
+        outputs: [
+            {
+                internalType: 'address',
+                name: '',
+                type: 'address',
+            },
+        ],
+        stateMutability: 'view',
+        type: 'function',
+    },
+    {
+        inputs: [],
+        name: 'renounceOwnership',
+        outputs: [],
+        stateMutability: 'nonpayable',
+        type: 'function',
+    },
+    {
+        inputs: [],
+        name: 'stake',
+        outputs: [],
+        stateMutability: 'payable',
+        type: 'function',
+    },
+    {
+        inputs: [
+            {
+                internalType: 'address',
+                name: '',
+                type: 'address',
+            },
+        ],
+        name: 'stakes',
+        outputs: [
+            {
+                internalType: 'uint256',
+                name: '',
+                type: 'uint256',
+            },
+        ],
+        stateMutability: 'view',
+        type: 'function',
+    },
+    {
+        inputs: [],
+        name: 'totalStaked',
+        outputs: [
+            {
+                internalType: 'uint256',
+                name: '',
+                type: 'uint256',
+            },
+        ],
+        stateMutability: 'view',
+        type: 'function',
+    },
+    {
+        inputs: [
+            {
+                internalType: 'address',
+                name: 'newOwner',
+                type: 'address',
+            },
+        ],
+        name: 'transferOwnership',
+        outputs: [],
+        stateMutability: 'nonpayable',
+        type: 'function',
+    },
+    {
+        inputs: [
+            {
+                internalType: 'uint256',
+                name: 'amount',
+                type: 'uint256',
+            },
+        ],
+        name: 'unstake',
+        outputs: [],
+        stateMutability: 'nonpayable',
+        type: 'function',
+    },
+];
 
 const garageData = [
     { name: 'Neon Nitro', prize: '1000 UNQ', chance: '5%', deposits: '10000 UNQ', icon: '🚀' },
@@ -21,6 +218,19 @@ interface GarageCardProps {
     index: number;
     onStake: (garageName: string) => void;
 }
+
+interface HandleStakeProps {
+    signer: ethers.Signer;
+    sdk: Sdk;
+    stakeAmount: string; // Numerical string, e.g. "1.5"
+    userAddress: string;
+    vaultTokenId: number;
+}
+
+import { useWallet } from '@/hooks/useWallet';
+import { connectSdk } from '@/lib/connectSDK';
+import { ethers } from 'ethers';
+import { Sdk, SignTxResultResponse, UnsignedTxPayloadResponse } from '@unique-nft/sdk/full';
 
 const GarageCard: React.FC<GarageCardProps> = ({ garage, index, onStake }) => (
     <Card className={`bg-slate-800 border-2 border-[${index % 2 === 0 ? retroPink : retroBlue}] rounded-lg overflow-hidden retro-card-shadow`}>
@@ -68,6 +278,7 @@ export default function Vaults() {
     const [isStakeModalOpen, setIsStakeModalOpen] = useState(false);
     const [selectedGarage, setSelectedGarage] = useState<string | null>(null);
     const [stakeAmount, setStakeAmount] = useState('');
+    const { signer, substrateAddress } = useWallet();
 
     const filteredGarages = garageData.filter((garage) => garage.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
@@ -76,13 +287,79 @@ export default function Vaults() {
         setIsStakeModalOpen(true);
     };
 
-    const confirmStake = () => {
-        // Here you would typically interact with your smart contract to stake the tokens
-        console.log(`Staking ${stakeAmount} tokens in ${selectedGarage}`);
-        setIsStakeModalOpen(false);
-        setStakeAmount('');
-        setSelectedGarage(null);
+    const submitStake = async () => {
+        if (signer && substrateAddress && selectedGarage && stakeAmount) {
+            const { sdk } = await connectSdk(signer, substrateAddress);
+
+            // Convert stake amount to wei
+            const stakeAmountWei = ethers.parseEther(stakeAmount);
+            // Create contract instance
+            const vaultContract = new ethers.Contract('0xB058e27BFE2e835D44b1b6CC185F10e5ba0c7b38', VAULT_ABI, signer);
+            console.log('Staking...');
+            // Call the stake function
+            const stakeTx = await vaultContract.stake({ value: stakeAmountWei });
+
+            // Wait for the transaction to be mined
+            await stakeTx.wait();
+            console.log('Stake successful');
+
+            console.log('Creating stake NFT...');
+            const createTokenArgs = {
+                address: substrateAddress,
+                collectionId: 3321,
+                owner: substrateAddress,
+                attributes: [
+                    {
+                        trait_type: 'Vault ID',
+                        value: 1,
+                    },
+                    {
+                        trait_type: 'Stake Amount',
+                        value: parseInt(stakeAmount),
+                    },
+                    {
+                        trait_type: 'Stake Timestamp',
+                        value: Date.now(),
+                    },
+                ],
+            };
+
+            // Step 1: Build the unsigned transaction
+            const unsignedTx: UnsignedTxPayloadResponse = await sdk.token.createV2.build(createTokenArgs);
+
+            // Step 2: Sign the transaction
+            const signCallback = async (unsignedTxPayload: UnsignedTxPayloadResponse): Promise<SignTxResultResponse> => {
+                const payloadBytes = ethers.toUtf8Bytes(JSON.stringify(unsignedTxPayload.signerPayloadJSON));
+                const signature = await signer.signMessage(payloadBytes);
+                return {
+                    signature,
+                    signatureType: 'ethereum',
+                };
+            };
+
+            const signedTx = await signCallback(unsignedTx);
+
+            // Step 3: Submit the transaction
+            const tokenTx = await sdk.token.createV2.submit({
+                ...unsignedTx,
+                signature: signedTx.signature,
+            });
+            console.log(`Transaction submitted. Hash: ${tokenTx.hash}`);
+            setStakeAmount('');
+            setIsStakeModalOpen(false);
+        }
     };
+
+    useEffect(() => {
+        const fetchVaults = async () => {
+            if (signer && substrateAddress) {
+                const { sdk } = await connectSdk(signer, substrateAddress);
+                const vaults = await sdk.collection.getV2({ collectionId: 3319 });
+                console.log(vaults);
+            }
+        };
+        fetchVaults();
+    }, [signer, substrateAddress]);
 
     return (
         <main className="py-8 px-4 md:px-6 max-w-7xl mx-auto bg-gradient-to-b from-slate-900 to-slate-800 text-white">
@@ -120,8 +397,8 @@ export default function Vaults() {
                     />
                     <DialogFooter>
                         <Button
-                            onClick={confirmStake}
                             className={`bg-gradient-to-r from-[${retroPink}] to-[${retroBlue}] text-white hover:brightness-110 transition-all duration-300 retro-button`}
+                            onClick={() => submitStake()}
                         >
                             Confirm Stake 🚀
                         </Button>

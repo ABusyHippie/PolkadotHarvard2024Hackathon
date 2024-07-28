@@ -1,28 +1,60 @@
-// hooks/useWallet.ts
 import { useState, useEffect } from 'react';
-import { web3Accounts, web3Enable } from '@polkadot/extension-dapp';
-import { ApiPromise, WsProvider } from '@polkadot/api';
+import { BrowserProvider, Signer } from 'ethers';
+import { Address } from '@unique-nft/utils';
 
+declare global {
+    interface Window {
+        ethereum?: any;
+    }
+}
 export function useWallet() {
-    const [address, setAddress] = useState<string | null>(null);
-    const [api, setApi] = useState<ApiPromise | null>(null);
+    const [ethereumAddress, setEthereumAddress] = useState<string | null>(null);
+    const [substrateAddress, setSubstrateAddress] = useState<string | null>(null);
+    const [provider, setProvider] = useState<BrowserProvider | null>(null);
+    const [signer, setSigner] = useState<Signer | null>(null);
+
+    const convertEthereumToSubstrate = (ethereumAddress: string) => {
+        try {
+            const substrateAddress = Address.mirror.ethereumToSubstrate(ethereumAddress);
+            return substrateAddress;
+        } catch (error: any) {
+            console.error('Error converting address:', error.message);
+            return null;
+        }
+    };
 
     const connectWallet = async () => {
-        const extensions = await web3Enable('NeonDrive Racing League');
-        if (extensions.length === 0) {
-            console.error('No extension found');
-            return;
-        }
+        if (typeof window.ethereum !== 'undefined') {
+            try {
+                await window.ethereum.request({ method: 'eth_requestAccounts' });
 
-        const allAccounts = await web3Accounts();
-        if (allAccounts.length > 0) {
-            setAddress(allAccounts[0].address);
-        }
+                const provider = new BrowserProvider(window.ethereum);
+                setProvider(provider);
 
-        if (!api) {
-            const wsProvider = new WsProvider('wss://unique-rpc.dwellir.com');
-            const newApi = await ApiPromise.create({ provider: wsProvider });
-            setApi(newApi);
+                const signer = await provider.getSigner();
+                setSigner(signer);
+
+                const address = await signer.getAddress();
+                setEthereumAddress(address);
+
+                const substrateAddr = convertEthereumToSubstrate(address);
+                setSubstrateAddress(substrateAddr);
+
+                window.ethereum.on('accountsChanged', async (accounts: string[]) => {
+                    setEthereumAddress(accounts[0]);
+                    const substrateAddr = convertEthereumToSubstrate(accounts[0]);
+                    setSubstrateAddress(substrateAddr);
+                    setSigner(await provider.getSigner());
+                });
+
+                window.ethereum.on('chainChanged', () => {
+                    window.location.reload();
+                });
+            } catch (error) {
+                console.error('Failed to connect to MetaMask', error);
+            }
+        } else {
+            console.error('MetaMask is not installed');
         }
     };
 
@@ -30,5 +62,5 @@ export function useWallet() {
         connectWallet();
     }, []);
 
-    return { address, api, connectWallet };
+    return { ethereumAddress, substrateAddress, provider, signer, connectWallet };
 }

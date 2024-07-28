@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+    substrate-proxy:
+        image: uniquenetwork/substrate-proxy:http-proxy-latest
+        ports:
+            - '3000:3000'
+        environment:
+            - PORT=3000
+            - CHAIN=unique
+            - MIN_LOG_LEVEL=info
+            - EXTRINSIC_MORTAL_BLOCK_LENGTH=32
+            - OPENAPI_SERVER_URL=http://localhost:3000
+            - OPENAPI_SERVER_DESCRIPTION="Local development server"
+            - EXTRINSICS_STORAGE_MAX_BLOCKS_COUNT=100

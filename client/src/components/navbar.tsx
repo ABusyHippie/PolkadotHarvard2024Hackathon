@@ -13,7 +13,7 @@ const retroPink = 'hsl(331, 100%, 45%)';
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
-    const { address, connectWallet } = useWallet();
+    const { ethereumAddress, connectWallet } = useWallet();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -53,10 +53,10 @@ export default function Navbar() {
                     className={`hidden md:inline-flex bg-gradient-to-r from-[${retroPink}] to-[${retroBlue}] text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 hover:brightness-110 retro-button`}
                     onClick={connectWallet}
                 >
-                    {address ? (
+                    {ethereumAddress ? (
                         <>
                             <Wallet className="w-4 h-4 mr-2" />
-                            {truncateAddress(address)}
+                            {truncateAddress(ethereumAddress)}
                         </>
                     ) : (
                         <>
@@ -88,7 +88,7 @@ export default function Navbar() {
                                 className={`w-full bg-gradient-to-r from-[${retroPink}] to-[${retroBlue}] text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 hover:brightness-110 retro-button`}
                                 onClick={connectWallet}
                             >
-                                {address ? truncateAddress(address) : 'Start Engine'}
+                                {ethereumAddress ? truncateAddress(ethereumAddress) : 'Start Engine'}
                             </Button>
                         </div>
                     </SheetContent>
