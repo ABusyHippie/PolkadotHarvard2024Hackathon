@@ -19,11 +19,11 @@ const createToken = async () => {
   const tokenImage = (() => {
     const rand = getRandomInt(3);
     if (rand === 0) {
-        return "https://gateway.pinata.cloud/ipfs/QmYCrmKFHky4wo4mtimMLsj1M9cDFyUao5JnKSv3KGSvkJ";
+        return "https://gateway.pinata.cloud/ipfs/QmXDktxoDApFot8rvfA2uLbn2HCLyszpcNNFnaNrUha9Re";
     } else if (rand === 1) {
         return "https://gateway.pinata.cloud/ipfs/QmRZqAMReL8PLGSDV4KwrgrnzSKEXcokR55uqmKBtCE6TH";
     } else {
-        return "https://gateway.pinata.cloud/ipfs/QmXDktxoDApFot8rvfA2uLbn2HCLyszpcNNFnaNrUha9Re";
+        return "https://gateway.pinata.cloud/ipfs/QmV8CUsVhYX4C5QoBZ2grixcxWYQQuayynJpv3vbPijMFV";
     }
 })();
 

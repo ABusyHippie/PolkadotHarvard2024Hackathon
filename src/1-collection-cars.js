@@ -10,10 +10,10 @@ const createCollection = async () => {
 
   // 2. Mint collection
   const {parsed} = await sdk.collection.createV2({
-    name: "Racing Dreams",
-    description: "Racing simulation demo",
-    symbol: "CAR",
-    cover_image: {url: "https://gateway.pinata.cloud/ipfs/QmeNzaLfsUUi5pGmhrASEpXF52deCDuByeKbU7SuZ9toEi"},
+    name: "Winner's Circle",
+    description: "Staking game collection",
+    symbol: "WINNER",
+    cover_image: {url: "https://gateway.pinata.cloud/ipfs/QmfUr3RAFoA98pHwA4qJz4u3fCwYTD8tn9VggXarSgzBp5"},
     // NOTICE: activate nesting for collection admin in order to assign achievements
     permissions: {nesting: {collectionAdmin: true}},
     encodeOptions: {
