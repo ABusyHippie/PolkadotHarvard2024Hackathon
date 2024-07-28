@@ -16,9 +16,16 @@ const createToken = async () => {
   const {account, sdk} = await connectSdk();
 
   // Get pseudo-random car image for fun
-  const tokenImage = getRandomInt(2) === 0
-    ? "https://gateway.pinata.cloud/ipfs/QmfWKy52e8pyH1jrLu4hwyAG6iwk6hcYa37DoVe8rdxXwV"
-    : "https://gateway.pinata.cloud/ipfs/QmNn6jfFu1jE7xPC2oxJ75kY1RvA2tz9bpQDsqweX2kDig"
+  const tokenImage = (() => {
+    const rand = getRandomInt(3);
+    if (rand === 0) {
+        return "https://gateway.pinata.cloud/ipfs/QmYCrmKFHky4wo4mtimMLsj1M9cDFyUao5JnKSv3KGSvkJ";
+    } else if (rand === 1) {
+        return "https://gateway.pinata.cloud/ipfs/QmRZqAMReL8PLGSDV4KwrgrnzSKEXcokR55uqmKBtCE6TH";
+    } else {
+        return "https://gateway.pinata.cloud/ipfs/QmXDktxoDApFot8rvfA2uLbn2HCLyszpcNNFnaNrUha9Re";
+    }
+})();
 
   const tokenTx = await sdk.token.createV2({
     collectionId,
