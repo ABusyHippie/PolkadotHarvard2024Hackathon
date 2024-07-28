@@ -26,12 +26,7 @@ const play = async () => {
   ////////////////////////////////////////////////////////
 
   const winnerToken = await sdk.token.getV2({collectionId: carsCollectionId, tokenId: winner});
-  let winnerVictories = winnerToken.attributes.find(a => a.trait_type === "Victories").value;
-  console.log("winner: ", winner, "Victories: ", winnerVictories)
-
-
-  winnerVictories = winnerToken.attributes.find(a => a.trait_type === "Victories").value;
-  console.log("winner: ", winner, "Victories: ", winnerVictories)
+  const winnerVictories = winnerToken.attributes.find(a => a.trait_type === "Victories").value;
 
   // 2. If this is the first win - give an achievement
   if (winnerVictories + 1 === 1) {
