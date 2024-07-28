@@ -4,6 +4,7 @@ This codebase allows you to launch a winner's circle circuit, create players, ru
 
 ## Demo
 [Loom Recording]((https://www.loom.com/share/a9f25db5aa7648cbb607ac9894db2cf8?sid=71437df5-d065-4926-8f0c-5161eb658ba7))
+https://www.loom.com/share/a9f25db5aa7648cbb607ac9894db2cf8?sid=71437df5-d065-4926-8f0c-5161eb658ba7
 
 
 ### Before we start
