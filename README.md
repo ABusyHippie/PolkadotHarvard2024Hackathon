@@ -9,7 +9,7 @@ This codebase allows you to launch a winner's circle circuit, create players, an
 - Create `.env` from `.env-example` and set your mnemonic phrase
 - Run `npm install`
 
-## Legend
+## How it works
 Winner's circle is a game for winner's only! Stake your crypto, generate yield rewards, have a chance to win a prize. Unstake at anytime, no losses!
 
 <img src="./images/img1.png">
@@ -53,14 +53,14 @@ Pass the following arguments to the function
 For example:
 
 ```sh
-node ./src/3-create-car.js 3135 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY EZsoFastBrrrr
-node ./src/3-create-car.js 3135 5CPuU98SimxwoHZRZCi8hezgnfBwATs8vKo6haqkaP3hUj7X BartFTW!
+node ./src/3-create-car.js 3135 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY EZsoFastBrrr
+node ./src/3-create-car.js 3135 5CPuU98SimxwoHZRZCi8hezgnfBwATs8vKo6haqkaP3hUj7X BartFTW
 ```
 
 ## 4. Play the game
 
 Pass the following arguments to the function
-- Winner's Circle collectionId (step 1)
+- Winner's Circle circuit collectionId (step 1)
 - Achievements collectionId (step 2)
 - First player's tokenId 
 - Second player's tokenId
