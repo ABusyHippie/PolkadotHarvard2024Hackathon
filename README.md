@@ -53,8 +53,9 @@ Pass the following arguments to the function
 For example:
 
 ```sh
-node ./src/3-create-car.js 3135 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY EZsoFastBrrr
-node ./src/3-create-car.js 3135 5CPuU98SimxwoHZRZCi8hezgnfBwATs8vKo6haqkaP3hUj7X BartFTW
+node ./src/3-create-car.js 3235 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY EZsoFastBrrr
+node ./src/3-create-car.js 3235 5CPuU98SimxwoHZRZCi8hezgnfBwATs8vKo6haqkaP3hUj7X BartFTW
+node ./src/3-create-car.js 3235 5CPuU98SimxwoHZRZCi8hezgnfBwATs8vKo6haqkaP3hUj7X SpeedyEswar
 ```
 
 ## 4. Play the game
@@ -64,7 +65,8 @@ Pass the following arguments to the function
 - Achievements collectionId (step 2)
 - First player's tokenId 
 - Second player's tokenId
+- Additional player's tokenIds
 
 ```sh
-node ./src/4-play.js 3132 3133 1 2
+node ./src/4-play.js 3235 3236 1 2 3
 ```
