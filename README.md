@@ -14,22 +14,22 @@ Winner's circle is a game for winner's only! Stake your crypto, generate yield r
 
 The repo is split into the back-end deployment code (main) for creating Unique NFT collections for players/power-ups/trophies, as well as front-end code (gendev1/frontend) for purchasing power-ups, staking into a racing pool, and distributing funds to the victors.
 
-### Front End (gendev1/frontend):
+## Front End (gendev1/frontend):
 
-## 1. Navigate to the client directory and install dependencies
+### 1. Navigate to the client directory and install dependencies
 
 ```sh
 cd client
 npm install
 ```
 
-## 2. Run the server and open http://localhost:3000/dashboard in your browser once it's running
+### 2. Run the server and open http://localhost:3000/dashboard in your browser once it's running
 
 ```sh
 npm run dev
 ```
 
-## 3. Connect to the dashboard using a Polkadot wallet and start your engines!
+### 3. Connect to the dashboard using a Polkadot wallet and start your engines!
 
 Races tab (Default)
 - View features
