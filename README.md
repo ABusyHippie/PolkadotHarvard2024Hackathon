@@ -2,6 +2,10 @@
 
 This codebase allows you to launch a winner's circle circuit, create players, run races to determine who wins the reward,  purchase power-ups, and distribute rewards to the winners. It also enables staking into a racing pool using a player's wallet connected from the front-end.
 
+## Demo
+[Loom Recording]([http://url.com](https://www.loom.com/share/a9f25db5aa7648cbb607ac9894db2cf8?sid=71437df5-d065-4926-8f0c-5161eb658ba7))
+
+
 ### Before we start
 
 - Create a Substrate account
