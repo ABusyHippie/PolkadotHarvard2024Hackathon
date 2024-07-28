@@ -1,6 +1,6 @@
 # Winner's Circle Demo
 
-This codebase allows you to launch a winner's circle circuit, create players, run races to determine who wins the reward,  purchase power-ups, and distribute rewards to the winners. 
+This codebase allows you to launch a winner's circle circuit, create players, run races to determine who wins the reward,  purchase power-ups, and distribute rewards to the winners. It also enables staking into a racing pool using a player's wallet connected from the front-end.
 
 ### Before we start
 
