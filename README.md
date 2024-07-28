@@ -32,16 +32,16 @@ npm run dev
 ### 3. Connect to the dashboard using a Polkadot wallet and start your engines!
 
 **Races tab (Default)**
+- Connect your wallet
 - View features
-- Overview of how it works
-- Join a race (staking pool)
+- Overview of how to play
 
 <img src="./images/img4.png">
 
 **Garage tab**
 - Select your vehicle
 - View it's features
-- Purchase Unique NFT to augment your odds (In Progress)
+- Join a race (staking pool)
 
 <img src="./images/img5.png">
 
