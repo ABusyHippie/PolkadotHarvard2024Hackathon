@@ -1,6 +1,6 @@
-# Unique NFT data management workshop
+# Winner's Circle Demo
 
-The workshop demonstrates how to store, manage, and extend data using nested tokens within the Unique Network.
+This codebase allows you to launch a winner's circle circuit, create players, and run races to find the staked rewards victor.
 
 ### Before we start
 
