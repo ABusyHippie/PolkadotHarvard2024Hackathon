@@ -10,29 +10,28 @@ The workshop demonstrates how to store, manage, and extend data using nested tok
 - Run `npm install`
 
 ## Legend
-
-Let's create a very simple game. In this game user can mint an NFT that represents racing car. Each NFT starts with an empty record—no wins, no losses.
+Winner's circle is a game for winner's only! Stake your crypto, generate yield rewards, have a chance to win a prize. Unstake at anytime, no losses!
 
 <img src="./images/img1.png">
 
-Players can then compete against each other. When a car wins a race, its `Victories` counter increases. If it loses, the `Defeats` counter increments accordingly.
+Join a staking pool and get a Dynamic player NFT which you can then augment with Nested NFTs that allow you to race with cars with better traits, give you "wheels" which improve your odds of winning the current pool, or "spikes" which sabotage other players. When you win a prize pool your `Victories` counter increases, and for each pool you "race" in the `Experience` counter increments.
 
 <img src="./images/img2.png">
 
-Exciting achievements can be awarded as well, and these achievements are also NFTs owned by the original racing car NFTs!
+Winner's of each race get a unique achievement NFT with the gold medal for your specific race, as well as the staking prize pool of yield rewards!
 
 <img src="./images/img3.png">
 
-### Talking about restrictions
+### Talking about features
 
 - All NFTs are owned by individual users
 - The application can modify NFT properties
-- Users cannot directly modify the properties of their NFTs
+- Users can modify the properties of their NFTs by purchasing nested NFTs
 
 ---
 
 
-## 1. Create a Racing cars collection
+## 1. Create a winner's circle collection
 
 ```sh
 node ./src/1-collection-cars.js
@@ -44,7 +43,7 @@ node ./src/1-collection-cars.js
 node ./src/2-collection-achievement.js
 ```
 
-## 3. Create at least two car NFTs
+## 3. Create at least two winner NFTs
 
 Pass the following arguments to the function
 - collectionId (step 1)
@@ -54,14 +53,14 @@ Pass the following arguments to the function
 For example:
 
 ```sh
-node ./src/3-create-car.js 3135 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY FastGuy
-node ./src/3-create-car.js 3135 5CPuU98SimxwoHZRZCi8hezgnfBwATs8vKo6haqkaP3hUj7X RaceQueen
+node ./src/3-create-car.js 3135 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY EZsoFastBrrrr
+node ./src/3-create-car.js 3135 5CPuU98SimxwoHZRZCi8hezgnfBwATs8vKo6haqkaP3hUj7X BartFTW!
 ```
 
 ## 4. Play the game
 
 Pass the following arguments to the function
-- Cars collectionId (step 1)
+- Winner's Circle collectionId (step 1)
 - Achievements collectionId (step 2)
 - First player's tokenId 
 - Second player's tokenId

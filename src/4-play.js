@@ -16,7 +16,7 @@ const play = async () => {
 
   // Pick the winner 
   const random = getRandomInt(2);
-  const [winner, loser] = random === 0 ? [tokenId1, tokenId2] : [tokenId2, tokenId1];
+  const [winner, player] = random === 0 ? [tokenId1, tokenId2] : [tokenId2, tokenId1];
   console.log(`Winner is ${winner}`);
 
   // 
@@ -45,7 +45,7 @@ const play = async () => {
   if (winnerVictories + 1 === 1) {
     transactions.push(sdk.token.createV2({
       collectionId: achievementsCollectionId,
-      image: "https://gateway.pinata.cloud/ipfs/QmY7hbSNiwE3ApYp83CHWFdqrcEAM6AvChucBVA6kC1e8u",
+      image: "https://gateway.pinata.cloud/ipfs/QmSEK7Vua2QbTXrN8GPzRZC7ZumxteZBwjdXnvaY3tzVDU",
       attributes: [{trait_type: "Bonus", value: 10}],
       // NOTICE: owner of the achievment NFT is car NFT
       owner: Address.nesting.idsToAddress(winnerToken.collectionId, winnerToken.tokenId),
@@ -53,41 +53,41 @@ const play = async () => {
   }
 
   ////////////////////////////////////////////////////////
-  ///////////////////// LOSER CALLS //////////////////////
+  ///////////////////// EXPERIENCE CALLS //////////////////////
   ////////////////////////////////////////////////////////
 
-  const loserToken = await sdk.token.getV2({collectionId: carsCollectionId, tokenId: loser});
-  const loserDefeats = loserToken.attributes.find(a => a.trait_type === "Defeats").value;
+  const expToken = await sdk.token.getV2({collectionId: carsCollectionId, tokenId: player});
+  const playerExps = expToken.attributes.find(a => a.trait_type === "Experience").value;
 
-  // 3. Increment Defeats to Loser
+  // 3. Increment Experiences to participant
   transactions.push(sdk.token.setProperties({
     collectionId: carsCollectionId,
-    tokenId: loser,
+    tokenId: player,
     // NOTICE: Attributes stored in "tokenData" property
     properties: [{
       key: "tokenData",
-      value: changeAttribute(loserToken, "Defeats", loserDefeats + 1)
+      value: changeAttribute(expToken, "Experience", playerExps + 1)
     }]
   }, {nonce: nonce++}));
 
-  // 4. If this is the first defeat - give an achievment
-  if (loserDefeats + 1 === 1) {
+  // 4. If this is the first experience - give an achievment
+  if (playerExps + 1 === 1) {
     transactions.push(sdk.token.createV2({
       collectionId: achievementsCollectionId,
-      image: "https://gateway.pinata.cloud/ipfs/QmP2pehdeJWNK8DMMoy7Fm9QoWHZ6As159NiZ6ZSrbb64o",
+      image: "https://gateway.pinata.cloud/ipfs/QmepSRHQNtjQmwfUeDetsq7a7HMRAUPoFtrVoCHWy9Nz2V",
       attributes: [{trait_type: "Bonus", value: 5}],
       // NOTICE: owner of the achievment NFT is car NFT
-      owner: Address.nesting.idsToAddress(loserToken.collectionId, loserToken.tokenId),
+      owner: Address.nesting.idsToAddress(expToken.collectionId, expToken.tokenId),
     }, {nonce: nonce++}));
   }
 
   await Promise.all(transactions);
 
   console.log(`TokenID ${winner} has ${winnerVictories + 1} wins`);
-  console.log(`TokenID ${loser} has ${loserDefeats + 1} defeats`);
+  console.log(`TokenID ${player} has ${playerExps + 1} experiences`);
 
   console.log(`Winner: https://uniquescan.io/opal/tokens/${carsCollectionId}/${winner}`);
-  console.log(`Loser: https://uniquescan.io/opal/tokens/${carsCollectionId}/${loser}`);
+  console.log(`Player: https://uniquescan.io/opal/tokens/${carsCollectionId}/${player}`);
 
   process.exit(0);
 }

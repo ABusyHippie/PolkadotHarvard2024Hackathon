@@ -41,7 +41,7 @@ const createToken = async () => {
         value: 0,
       },
       {
-        trait_type: "Defeats",
+        trait_type: "Experience",
         value: 0,
       }
     ],

@@ -4,10 +4,10 @@ const createCollection = async () => {
   const {sdk} = await connectSdk();
 
   const {parsed} = await sdk.collection.createV2({
-    name: "Racing Dreams Achievements",
-    description: "Achievements for Racing simulation demo",
-    symbol: "ACH",
-    cover_image: {url: "https://gateway.pinata.cloud/ipfs/QmWm5mPjmWqFvF2wyXbheumBWoEQpWm1f9GqGQfLfBYbDi"},
+    name: "Winner's Circle Achievements",
+    description: "Achievements for winner's circle circuits",
+    symbol: "RACE",
+    cover_image: {url: "https://gateway.pinata.cloud/ipfs/QmUnD37r9JR9sQsFQW2aZnTKiXbsJg4Jdy3qsaWn4kLCK6"},
     // NOTICE: activate nesting in order to assign achievements
     permissions: {nesting: {collectionAdmin: true}},
     encodeOptions: {
