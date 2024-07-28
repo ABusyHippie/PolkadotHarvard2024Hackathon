@@ -65,8 +65,8 @@ Winner's of each race get a unique achievement NFT with the gold medal for your 
 
 ### Features
 
-- All NFTs are owned by individual users
-- The application can modify NFT properties
+- Allows an arbitrarily large number of players
+- NFTs are dynamic and can be modified by contract code
 - Users can modify the properties of their NFTs by purchasing nested NFTs
 
 ---
