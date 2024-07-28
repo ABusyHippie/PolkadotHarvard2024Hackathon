@@ -12,7 +12,7 @@ This codebase allows you to launch a winner's circle circuit, create players, an
 ## How it works
 Winner's circle is a game for winner's only! Stake your crypto, generate yield rewards, win a prize for each race won. Unstake at anytime, no losses!
 
-The repo is split into the back-end deployment code (main) for creating Unique NFT collections for players/power-ups/trophies, as well as front-end code (gendev1/frontend) for purchasing power-ups, staking into a racing pool, and distributing funds to the victors.
+The repo is split into the back-end deployment code (main branch) for creating Unique NFT collections for players/power-ups/trophies, as well as front-end code (gendev1/frontend branch) for purchasing power-ups, staking into a racing pool, and distributing funds to the victors.
 
 ## Front End (gendev1/frontend):
 
