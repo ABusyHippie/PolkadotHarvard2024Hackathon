@@ -11,7 +11,7 @@ export default function Dashboard() {
     return (
         <div className="py-8 px-4 md:px-6 max-w-7xl mx-auto text-white">
             <h1 className="text-5xl font-extrabold mb-4 text-center bg-clip-text text-transparent bg-gradient-to-r from-[#ff8a00] via-[#e52e71] to-[#ff8a00] retro-text-shadow">
-                NeonDrive Racing League 🏁
+                Winner's Circle Racing League 🏁
             </h1>
             <p className="text-xl text-center mb-12 text-slate-300">Accelerate your gains in the Polkadot & Unique Network fast lane!</p>
 

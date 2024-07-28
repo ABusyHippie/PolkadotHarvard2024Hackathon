@@ -35,7 +35,7 @@ export default function Navbar() {
                     <div className={`bg-gradient-to-r from-[${retroPink}] to-[${retroBlue}] p-2 rounded-full`}>
                         <GaugeCircle className="h-6 w-6 text-white" />
                     </div>
-                    <span className={`font-bold text-xl bg-clip-text text-white retro-text-shadow`}>NeonDrive</span>
+                    <span className={`font-bold text-xl bg-clip-text text-white retro-text-shadow`}>Winner's Circle</span>
                 </Link>
                 <nav className="hidden items-center gap-6 md:flex">
                     {[
