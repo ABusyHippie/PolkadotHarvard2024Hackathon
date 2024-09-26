@@ -25,7 +25,7 @@ Exciting achievements can be awarded as well, and these achievements are also NF
 
 ### Talking about restrictions
 
-- All NFTs are owned by individual users
+- All NFTs are owned by individual users 
 - The application can modify NFT properties
 - Users cannot directly modify the properties of their NFTs
 
