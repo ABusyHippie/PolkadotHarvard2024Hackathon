@@ -24,7 +24,7 @@ The repo is split into the back-end deployment code (main branch) for creating U
 ### 1. Navigate to the client directory and install dependencies
 
 ```sh
-cd client
+cd client 
 npm install
 ```
 
