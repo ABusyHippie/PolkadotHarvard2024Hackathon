@@ -27,7 +27,7 @@ The repo is split into the back-end deployment code (main branch) for creating U
 cd client 
 npm install
 ```
-
+ 
 ### 2. Run the server and open http://localhost:3000/dashboard in your browser once it's running
 
 ```sh
