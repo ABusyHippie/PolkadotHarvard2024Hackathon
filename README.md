@@ -18,7 +18,7 @@ https://www.loom.com/share/a9f25db5aa7648cbb607ac9894db2cf8?sid=71437df5-d065-49
 Winner's circle is a game for winner's only! Stake your crypto, generate yield rewards, win a prize for each race won. Unstake at anytime, no losses!
 
 The repo is split into the back-end deployment code (main branch) for creating Unique NFT collections for players/power-ups/trophies, as well as front-end code (gendev1/frontend branch) for purchasing power-ups, staking into a racing pool, and distributing funds to the victors.
-
+ 
 ## Front End (gendev1/frontend):
  
 ### 1. Navigate to the client directory and install dependencies
