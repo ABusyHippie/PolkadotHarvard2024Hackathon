@@ -21,7 +21,7 @@ The repo is split into the back-end deployment code (main branch) for creating U
  
 ## Front End (gendev1/frontend):
  
-### 1. Navigate to the client directory and install dependencies
+### 1. Navigate to the client directory and install dependencies 
 
 ```sh 
 cd client 
