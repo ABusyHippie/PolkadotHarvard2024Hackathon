@@ -116,3 +116,6 @@ Pass the following arguments to the function
 ```sh
 node ./src/4-play.js 3235 3236 1 2 3
 ```
+## 5. BONUS!
+
+![Money Me](https://media1.tenor.com/m/b3pdDsGSJ94AAAAd/xx.gif)
