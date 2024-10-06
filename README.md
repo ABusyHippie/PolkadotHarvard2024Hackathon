@@ -96,7 +96,7 @@ Pass the following arguments to the function
 - owner Substrate address
 - owner nickname
  
-For example:
+For example: 
 
 ```sh
 node ./src/3-create-car.js 3235 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY EZsoFastBrrr
