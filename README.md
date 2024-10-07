@@ -108,7 +108,7 @@ node ./src/3-create-car.js 3235 5CPuU98SimxwoHZRZCi8hezgnfBwATs8vKo6haqkaP3hUj7X
 
 Pass the following arguments to the function
 - Winner's Circle circuit collectionId (step 1)
-- Achievements collectionId (step 2)
+- Achievements collectionId (step 2) 
 - First player's tokenId 
 - Second player's tokenId
 - Additional player's tokenIds
