@@ -95,7 +95,7 @@ Pass the following arguments to the function
 - collectionId (step 1)
 - owner Substrate address
 - owner nickname
- 
+  
 For example:  
 
 ```sh
